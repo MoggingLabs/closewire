@@ -1,0 +1,43 @@
+# ── Secrets: never commit real credentials ───────────────────────────
+.env
+.env.*
+!.env.example
+secrets/
+*.token
+*.tokens
+tokens.json
+*.har
+storage-state.json
+cookies.txt
+
+# ── Python ──────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ── Node ────────────────────────────────────────────────────────────
+node_modules/
+dist/
+build/
+npm-debug.log*
+pnpm-debug.log*
+
+# ── Data & snapshots (may contain account data) ─────────────────────
+snapshots/
+*.snapshot.json
+
+# ── Local-only build prompts (never shipped) ────────────────────────
+prompts/
+
+# ── OS / editor ─────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
