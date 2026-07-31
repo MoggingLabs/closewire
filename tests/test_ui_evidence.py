@@ -37,6 +37,37 @@ _REQUIRED_KEYS = ("raw", "captured", "shows", "redacted")
 
 _IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif"}
 
+#: Logs written before the two-tier convention existed, whose UI evidence is still raw-only.
+#:
+#: **This is a debt, listed so it shrinks rather than hides.** Nine captures across phases
+#: 04-08 are cited by those logs and live only in gitignored `screens/`, so phase 13's packet
+#: cannot carry any of them. The protocol that put them there was itself the defect
+#: (`docs/validation/README.md` step 3 pointed every phase at `screens/` and stopped).
+#:
+#: Backfilling costs about an hour and no live calls — every raw file is on the machine that
+#: took it. Two need real masking rather than cropping (`05-ui-chats`, the Chats list, and
+#: `09-ui-transcript`, which carries lead names and a phone number); the rest are dashboards
+#: that crop cleanly.
+#:
+#: Listed **per capture**, not per log: exempting a whole log would let a *new* raw-only
+#: citation slip into a phase that is otherwise clean, which is how an allowlist stops
+#: meaning anything. `test_the_backfill_debt_is_real` fails on any entry that is no longer
+#: cited raw-only, so the set can only shrink.
+_BACKFILL_OWED = {
+    "screens/04-blocked-login.jpg",
+    "screens/04-dashboard-authenticated.jpg",
+    "screens/05-ui-agents.jpg",
+    "screens/05-ui-chats.jpg",
+    "screens/05-ui-sources.jpg",
+    "screens/06-ui-booking-12mo.jpg",
+    "screens/06-ui-booking-daily-empty.jpg",
+    "screens/07-agents-ceiling.jpg",
+    "screens/07-persona-updated.jpg",
+    "screens/09-ui-usage.jpg",
+    "screens/09-agents-after.jpg",
+    "screens/09-ui-transcript.jpg",
+}
+
 
 def _sidecar_fields(path: Path) -> dict[str, str]:
     fields: dict[str, str] = {}
@@ -74,19 +105,52 @@ def test_every_committed_ui_image_has_a_complete_sidecar() -> None:
     assert not problems, "\n".join(problems)
 
 
-def test_every_image_a_log_cites_actually_exists() -> None:
+def test_every_committed_image_a_log_cites_actually_exists() -> None:
     """A citation pointing at nothing is worse than no citation.
 
     Deviation 33 cited a flow-canvas capture that was never taken. The deviation was true and
     its evidence was void, and no check could tell.
+
+    **Scoped to committed paths.** An earlier version also required every `screens/…`
+    citation to resolve on disk, which passed on the machine that took the captures and
+    failed on the **first push to CI** — a fresh clone has no `screens/` at all, because the
+    whole point of that directory is that it does not travel. Requiring a gitignored file to
+    exist is a check that can only pass where the work was done.
+
+    What that leaves is asserted by the test below: a clause may not rest *solely* on an
+    artefact nobody else can see.
     """
     problems: list[str] = []
-    cited = re.compile(r"`((?:screens|evidence/ui)/[\w./-]+\.(?:png|jpg|jpeg|gif))`")
+    cited = re.compile(r"`(evidence/ui/[\w./-]+\.(?:png|jpg|jpeg|gif))`")
     for log in sorted(DOCS.glob("[0-9][0-9]-*.md")):
         for match in cited.finditer(log.read_text(encoding="utf-8")):
-            target = DOCS / match.group(1)
-            if not target.exists():
+            if not (DOCS / match.group(1)).exists():
                 problems.append(f"{log.name} cites {match.group(1)}, which does not exist")
+    assert not problems, "\n".join(problems)
+
+
+def test_no_section_rests_only_on_a_gitignored_capture() -> None:
+    """A clause whose only evidence is in `screens/` is a clause phase 13 cannot carry.
+
+    This is the property the two-tier convention exists for, and the one that survives on a
+    fresh clone: a raw capture may be cited as the *source* of a redacted counterpart, but a
+    section that cites `screens/…` and nothing committed has no evidence a reader can reach.
+
+    Checked per section rather than per line, because a log legitimately names the raw file
+    next to its crop — as `docs/validation/README.md` step 3 tells it to.
+    """
+    raw = re.compile(r"`(screens/[\w./-]+\.(?:png|jpg|jpeg|gif))`")
+    committed = re.compile(r"`evidence/ui/[\w./-]+\.(?:png|jpg|jpeg|gif)`")
+    problems: list[str] = []
+    for log in sorted(DOCS.glob("[0-9][0-9]-*.md")):
+        for section in re.split(r"\n#{2,4} ", log.read_text(encoding="utf-8")):
+            names = [n for n in raw.findall(section) if n not in _BACKFILL_OWED]
+            if names and not committed.search(section):
+                problems.append(
+                    f"{log.name}: a section cites {sorted(set(names))} and nothing under "
+                    "evidence/ui/. Commit a redacted crop and sidecar, or the clause rests "
+                    "on an artefact that never leaves the machine it was captured on."
+                )
     assert not problems, "\n".join(problems)
 
 
@@ -100,6 +164,25 @@ def test_the_ui_evidence_tier_is_not_empty() -> None:
     assert UI.is_dir() and any(p.suffix.lower() in _IMAGE_SUFFIXES for p in UI.iterdir()), (
         "docs/validation/evidence/ui/ holds no committed images, so the sidecar gate asserts "
         "nothing"
+    )
+
+
+def test_the_backfill_debt_is_real() -> None:
+    """An exemption that owes nothing is a leftover, and leftovers grow.
+
+    Each entry must still be cited by some log. When a capture is backfilled and its citation
+    replaced by the committed crop, this fails until the entry is removed — so the set can
+    only shrink.
+    """
+    cited: set[str] = set()
+    for log in sorted(DOCS.glob("[0-9][0-9]-*.md")):
+        cited.update(re.findall(r"`(screens/[\w./-]+\.(?:png|jpg|jpeg|gif))`",
+                                log.read_text(encoding="utf-8")))
+    stale = sorted(_BACKFILL_OWED - cited)
+    assert not stale, (
+        f"these captures are no longer cited by any log: {stale}. Remove them from "
+        "_BACKFILL_OWED — an exemption that exempts nothing is how the list stops meaning "
+        "anything."
     )
 
 

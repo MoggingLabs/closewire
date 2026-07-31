@@ -109,6 +109,16 @@ def _stubbed(recorder: _Recorder):
         httpx.Client.send = original  # type: ignore[method-assign]
 
 
+#: A fake key, so these tests need no `.env`.
+#:
+#: `probe_runtime_auth.main()` calls `load_config()`, which is strict — and the offline tier
+#: of `scripts/ci.py` runs with **no credentials at all**. These tests passed locally purely
+#: because the developer machine had a `.env`, and failed on the first push to CI. A gate in
+#: the offline tier that needs a real key is not offline; a fresh clone is the only thing that
+#: reveals it, which is the whole argument for CI running the same script.
+_FAKE_KEY = "sk-ci-not-a-real-key-000000"
+
+
 @contextlib.contextmanager
 def _env(**values: str):
     saved = {key: os.environ.get(key) for key in values}
@@ -134,7 +144,7 @@ def test_the_runtime_probe_refuses_to_run_under_dry_run() -> None:
     probe = _load("_probe_dryrun", PROBE)
     recorder = _Recorder()
     out, err = io.StringIO(), io.StringIO()
-    with _env(CLOSEWIRE_DRY_RUN="1"), _stubbed(recorder):
+    with _env(CLOSEBOT_API_KEY=_FAKE_KEY, CLOSEWIRE_DRY_RUN="1"), _stubbed(recorder):
         with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
             code = probe.main([])
     assert code == 2, "the probe ran under dry-run instead of refusing"
@@ -164,7 +174,7 @@ def test_the_runtime_probe_builds_exactly_one_pacer() -> None:
     pacing.Pacer.__init__ = counting  # type: ignore[method-assign]
     try:
         recorder = _Recorder()
-        with _env(CLOSEWIRE_DRY_RUN="0", CLOSEWIRE_MIN_DELAY_S="0",
+        with _env(CLOSEBOT_API_KEY=_FAKE_KEY, CLOSEWIRE_DRY_RUN="0", CLOSEWIRE_MIN_DELAY_S="0",
                   CLOSEWIRE_MAX_DELAY_S="0"), _stubbed(recorder):
             with contextlib.redirect_stdout(io.StringIO()):
                 probe.main(["--live"])
@@ -180,7 +190,7 @@ def test_the_runtime_probe_reads_the_meter_exactly_twice() -> None:
     """Before and after. A third read was dead work that cost a real paced call."""
     probe = _load("_probe_meter", PROBE)
     recorder = _Recorder()
-    with _env(CLOSEWIRE_DRY_RUN="0", CLOSEWIRE_MIN_DELAY_S="0",
+    with _env(CLOSEBOT_API_KEY=_FAKE_KEY, CLOSEWIRE_DRY_RUN="0", CLOSEWIRE_MIN_DELAY_S="0",
               CLOSEWIRE_MAX_DELAY_S="0"), _stubbed(recorder):
         with contextlib.redirect_stdout(io.StringIO()):
             probe.main(["--live"])
@@ -199,7 +209,7 @@ def test_the_bot_id_probe_masks_a_third_party_credential() -> None:
     probe = _load("_probe_scrub", PROBE)
     recorder = _Recorder(body=f'{{"echo": {{"X-CB-KEY": "{third_party}"}}}}')
     out = io.StringIO()
-    with _env(CLOSEWIRE_DRY_RUN="0", CLOSEWIRE_MIN_DELAY_S="0",
+    with _env(CLOSEBOT_API_KEY=_FAKE_KEY, CLOSEWIRE_DRY_RUN="0", CLOSEWIRE_MIN_DELAY_S="0",
               CLOSEWIRE_MAX_DELAY_S="0"), _stubbed(recorder):
         with contextlib.redirect_stdout(out):
             probe.main(["--live"])

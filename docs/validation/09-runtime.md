@@ -1,7 +1,7 @@
 ---
 phase: 09
 status: in-progress
-suite_total: 306
+suite_total: 308
 ---
 # Phase 09 — Live-message runtime + test sessions
 
@@ -12,7 +12,8 @@ active flow, which unblocked this phase and the live halves of 07 and 08 with it
 
 **Step 3 (the UI transcript): two of three clauses met.** Round 12 captured a four-turn
 session on both sides independently — a captured CLI transcript in
-`evidence/09-goal-flip-cli.txt`, the UI in `screens/09-goal-flip-transcript.png` — and they
+`evidence/09-goal-flip-cli.txt`, the UI in `evidence/ui/09-goal-flip-transcript.redacted.png` (raw:
+`screens/09-goal-flip-transcript.png`, gitignored) — and they
 carry the same turns in the same order. An earlier revision claimed "the two match exactly"
 off a table that was itself quoted from the UI; that comparison was circular and is
 withdrawn. The third clause, goal completion, is **not met and the reason is inconclusive**:
@@ -398,7 +399,7 @@ endpoint actually key resolution on*, to which this phase has no answer.
 
 ### Tests
 
-`306 passed`, up from 132 at the end of phase 08 — **174 added by this phase**:
+`308 passed`, up from 132 at the end of phase 08 — **176 added by this phase**:
 
 | file | tests | what it gates |
 |---|---|---|
@@ -413,7 +414,7 @@ endpoint actually key resolution on*, to which this phase has no answer.
 | `tests/test_suite_integrity.py` | 5 | the *test below the runner*, and *file unknown to git*, classes |
 | `tests/test_evidence_provenance.py` | 3 | the *results exist only as prose* class |
 | `tests/test_lint.py` | 3 | the *declared linter nobody ran* class |
-| `tests/test_ui_evidence.py` | 3 | the *UI evidence lives where phase 13 cannot read it* class |
+| `tests/test_ui_evidence.py` | 5 | the *UI evidence lives where phase 13 cannot read it* class |
 | `tests/test_surface_claims.py` | 2 | the *an exhaustiveness claim never had a domain* class — filed 8 times |
 | `tests/test_probe_scripts.py` | 5 | the *the most dangerous script is the least gated* class |
 
@@ -526,7 +527,8 @@ captured independently:
   familiar "detailed section fixed, summary not" defect, inverted.
 - **UI side** — two artefacts, because `screens/` is gitignored and a phase-13 packet cannot
   carry anything in it:
-  - `screens/09-goal-flip-transcript.png` — the full four-turn transcript with the
+  - `screens/09-goal-flip-transcript.png` — raw, gitignored; committed counterpart
+    `evidence/ui/09-goal-flip-transcript.redacted.png`. The full four-turn transcript with the
     `bot_2U91R6FH00C25WZS` / `zz-closewire-test-09-renamed v0.0.2` header. Local only.
   - `evidence/ui/09-goal-flip-transcript.redacted.png` — **committed**, with a sidecar
     (`.redacted.md`) naming the raw capture, what the image shows, what was cropped out, and
@@ -977,7 +979,8 @@ deviation 26 rather than left as a silent leftover.
     entirely through the helpers stacks all its nodes at the origin. The graph is valid and
     the API accepts it, but the builder canvas renders the labels superimposed and unreadable
     — visible in the flow builder. **That is where the citation stops**: an earlier revision
-    cited "`screens/09-goal-flip-transcript.png`'s sibling capture of the flow", and no such
+    cited "`screens/09-goal-flip-transcript.png`'s sibling capture of the flow" (committed
+    counterpart: `evidence/ui/09-goal-flip-transcript.redacted.png`), and no such
     capture exists — the thirteen files under `screens/` are login, dashboard, agents, chats,
     sources, booking, persona and transcript views, none of them the canvas. The deviation's
     substance is independently verifiable from `jobflow.py`'s `{x: 0, y: 0}` default and from

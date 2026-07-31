@@ -186,23 +186,28 @@ def test_no_source_or_evidence_file_is_swallowed_by_a_gitignore_rule() -> None:
     )
 
 
-def test_the_ignored_allowlist_still_describes_something_real() -> None:
+def test_the_ignored_allowlist_still_describes_a_real_rule() -> None:
     """A stale exemption hides the next real one.
 
-    If `screens/` ever stops being ignored — or stops existing — this exemption is no longer
-    a decision, it is a leftover, and leftovers are how an allowlist quietly grows to cover
-    a defect nobody chose.
+    Asserted against the **ignore rule**, not against files on this disk. An earlier version
+    required something ignored to actually match each prefix — which held on a machine that
+    had run the browser captures and failed on the **first push to CI**, because a fresh
+    clone has no `screens/` directory at all. The files are gitignored precisely so they do
+    not travel; a check that needs them present is a check that only works where the work was
+    done. `git check-ignore` asks about the rule, which is the thing that either exists or
+    does not.
     """
     import subprocess
 
     root = TESTS.parent
-    ignored = subprocess.run(
-        ["git", "ls-files", "--others", "--ignored", "--exclude-standard"],
-        capture_output=True, text=True, cwd=root,
-    ).stdout
     for prefix in _DELIBERATELY_IGNORED:
-        assert prefix in ignored, (
-            f"_DELIBERATELY_IGNORED names {prefix!r}, but nothing ignored matches it. "
+        probe = f"{prefix.rstrip('/')}/_probe_does_not_need_to_exist.png"
+        result = subprocess.run(
+            ["git", "check-ignore", "-q", probe],
+            capture_output=True, text=True, cwd=root,
+        )
+        assert result.returncode == 0, (
+            f"_DELIBERATELY_IGNORED names {prefix!r}, but no .gitignore rule covers it. "
             "Remove the entry — a stale exemption is a hole nobody is watching."
         )
 
