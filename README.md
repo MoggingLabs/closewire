@@ -15,7 +15,9 @@ conversations — through a custom MCP server over Closebot's API. One clean too
 
 ---
 
-> **Status: early scaffold.** The interface and phases below are the plan, not yet built. Part of
+> **Status: phases 04-09 built and validated** (pacing, Tier-0 reads, read CLI, Tier-1 writes,
+> Tier-2 publish/destroy, live-message runtime + test sessions). Phases 10-13 are the plan below,
+> not yet built. Per-phase logs are in `docs/validation/`. Part of
 > the [MoggingLabs Internals](https://github.com/MoggingLabs/mogginglabs-internals) driver family —
 > see the [Roadmap](https://github.com/MoggingLabs/mogginglabs-internals/blob/main/ROADMAP.md).
 
@@ -59,6 +61,7 @@ an API key.
 
 ## 🗺️ Roadmap
 
+- [x] **v0.0** scaffold — three importable packages, `.env` config loading, CLI + MCP skeleton
 - [ ] **v0.1** read-only — list bots, read transcripts + booking/qualification outcomes
 - [ ] **v0.2** write — create/update a bot, push persona/prompt/objection handling
 - [ ] **v0.3** wiring — connect a bot to a GHL sub-account end-to-end

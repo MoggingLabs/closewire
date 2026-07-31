@@ -1,0 +1,1273 @@
+[
+  {
+    "id": "get_account-apikey",
+    "method": "GET",
+    "path": "/account/apiKey",
+    "tag": "Account",
+    "summary": "List API keys",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "ApiKeyDTO"
+  },
+  {
+    "id": "post_account-apikey",
+    "method": "POST",
+    "path": "/account/apiKey",
+    "tag": "Account",
+    "summary": "Create API Key",
+    "auth": "X-CB-KEY",
+    "request_body": "CreateApiKeyInput",
+    "response_schema": "CreateApiKeyOutput"
+  },
+  {
+    "id": "delete_account-apikey-keyid",
+    "method": "DELETE",
+    "path": "/account/apiKey/{keyId}",
+    "tag": "Account",
+    "summary": "Delete API Key",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_agency",
+    "method": "GET",
+    "path": "/agency",
+    "tag": "Agency",
+    "summary": "List agencies",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "AgencyDto"
+  },
+  {
+    "id": "get_agency-current",
+    "method": "GET",
+    "path": "/agency/current",
+    "tag": "Agency",
+    "summary": "Get agency",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "AgencyDto"
+  },
+  {
+    "id": "delete_agency-invite",
+    "method": "DELETE",
+    "path": "/agency/invite",
+    "tag": "Agency",
+    "summary": "Revoke invitation",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "post_agency-invite",
+    "method": "POST",
+    "path": "/agency/invite",
+    "tag": "Agency",
+    "summary": "Invite users",
+    "auth": "X-CB-KEY",
+    "request_body": "InviteUserInput",
+    "response_schema": null
+  },
+  {
+    "id": "get_agency-usage",
+    "method": "GET",
+    "path": "/agency/usage",
+    "tag": "Agency",
+    "summary": "Get usage",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_agency-billing-balance",
+    "method": "GET",
+    "path": "/agency/billing/balance",
+    "tag": "Billing",
+    "summary": "Get agency balance",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BalanceDto"
+  },
+  {
+    "id": "get_agency-billing-balance-source-sourceid",
+    "method": "GET",
+    "path": "/agency/billing/balance/source/{sourceId}",
+    "tag": "Billing",
+    "summary": "Get source balance",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BalanceDto"
+  },
+  {
+    "id": "get_agency-billing-options",
+    "method": "GET",
+    "path": "/agency/billing/options",
+    "tag": "Billing",
+    "summary": "Get agency billing",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BillingOptionsDto"
+  },
+  {
+    "id": "put_agency-billing-options",
+    "method": "PUT",
+    "path": "/agency/billing/options",
+    "tag": "Billing",
+    "summary": "Update agency billing",
+    "auth": "X-CB-KEY",
+    "request_body": "UpdateBillingConfigInput",
+    "response_schema": "BillingOptionsDto"
+  },
+  {
+    "id": "get_agency-billing-re-billing",
+    "method": "GET",
+    "path": "/agency/billing/re-billing",
+    "tag": "Billing",
+    "summary": "Get re-billing settings",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "ReBillingDto"
+  },
+  {
+    "id": "put_agency-billing-re-billing",
+    "method": "PUT",
+    "path": "/agency/billing/re-billing",
+    "tag": "Billing",
+    "summary": "Update re-billing",
+    "auth": "X-CB-KEY",
+    "request_body": "ReBillingUpdateInput",
+    "response_schema": null
+  },
+  {
+    "id": "post_agency-billing-refill",
+    "method": "POST",
+    "path": "/agency/billing/refill",
+    "tag": "Billing",
+    "summary": "Refill agency wallet",
+    "auth": "X-CB-KEY",
+    "request_body": "CreateRefillDto",
+    "response_schema": null
+  },
+  {
+    "id": "post_agency-billing-refill-source-sourceid",
+    "method": "POST",
+    "path": "/agency/billing/refill/source/{sourceId}",
+    "tag": "Billing",
+    "summary": "Refill source wallet",
+    "auth": "X-CB-KEY",
+    "request_body": "CreateRefillDto",
+    "response_schema": null
+  },
+  {
+    "id": "get_agency-billing-transactions",
+    "method": "GET",
+    "path": "/agency/billing/transactions",
+    "tag": "Billing",
+    "summary": "List agency transactions",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "TransactionDto"
+  },
+  {
+    "id": "get_agency-billing-transactions-source-sourceid",
+    "method": "GET",
+    "path": "/agency/billing/transactions/source/{sourceId}",
+    "tag": "Billing",
+    "summary": "List source transactions",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "TransactionDto"
+  },
+  {
+    "id": "post_agency-billing-transactions-source-sourceid",
+    "method": "POST",
+    "path": "/agency/billing/transactions/source/{sourceId}",
+    "tag": "Billing",
+    "summary": "Add source transaction",
+    "auth": "X-CB-KEY",
+    "request_body": "AddSourceTransactionDto",
+    "response_schema": "TransactionDto"
+  },
+  {
+    "id": "delete_agency-billing-transactions-source-sourceid-id",
+    "method": "DELETE",
+    "path": "/agency/billing/transactions/source/{sourceId}/{id}",
+    "tag": "Billing",
+    "summary": "Delete source transaction",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_agency-billing-usages",
+    "method": "GET",
+    "path": "/agency/billing/usages",
+    "tag": "Billing",
+    "summary": "List billed usages",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BilledUsageDto"
+  },
+  {
+    "id": "get_bot",
+    "method": "GET",
+    "path": "/bot",
+    "tag": "Bot",
+    "summary": "List bots",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BotDto"
+  },
+  {
+    "id": "post_bot",
+    "method": "POST",
+    "path": "/bot",
+    "tag": "Bot",
+    "summary": "Create a new bot",
+    "auth": "X-CB-KEY",
+    "request_body": "CreateBotInput",
+    "response_schema": "BotDto"
+  },
+  {
+    "id": "post_bot-ai",
+    "method": "POST",
+    "path": "/bot/ai",
+    "tag": "Bot",
+    "summary": "Create bot with AI",
+    "auth": "X-CB-KEY",
+    "request_body": "AiCreateBotInput",
+    "response_schema": "BotDto"
+  },
+  {
+    "id": "get_bot-bbb-templates",
+    "method": "GET",
+    "path": "/bot/bbb/templates",
+    "tag": "Bot",
+    "summary": "Get bot builder builder templates",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_bot-nodedescriptors",
+    "method": "GET",
+    "path": "/bot/nodeDescriptors",
+    "tag": "Bot",
+    "summary": "Get the node descriptors",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "NodeInformation"
+  },
+  {
+    "id": "delete_bot-id",
+    "method": "DELETE",
+    "path": "/bot/{id}",
+    "tag": "Bot",
+    "summary": "Delete a bot",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_bot-id",
+    "method": "GET",
+    "path": "/bot/{id}",
+    "tag": "Bot",
+    "summary": "Get a bot",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BotDto"
+  },
+  {
+    "id": "put_bot-id",
+    "method": "PUT",
+    "path": "/bot/{id}",
+    "tag": "Bot",
+    "summary": "Update a bot",
+    "auth": "X-CB-KEY",
+    "request_body": "UpdateBotInput",
+    "response_schema": "BotDto"
+  },
+  {
+    "id": "post_bot-id-duplicate",
+    "method": "POST",
+    "path": "/bot/{id}/duplicate",
+    "tag": "Bot",
+    "summary": "Duplicate a bot",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BotDto"
+  },
+  {
+    "id": "get_bot-id-export",
+    "method": "GET",
+    "path": "/bot/{id}/export",
+    "tag": "Bot",
+    "summary": "Export a bot",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "ExportBotResponse"
+  },
+  {
+    "id": "post_bot-id-publish",
+    "method": "POST",
+    "path": "/bot/{id}/publish",
+    "tag": "Bot",
+    "summary": "Publish a bot",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "PublishBotResponse"
+  },
+  {
+    "id": "post_bot-id-save",
+    "method": "POST",
+    "path": "/bot/{id}/save",
+    "tag": "Bot",
+    "summary": "Save a bot",
+    "auth": "X-CB-KEY",
+    "request_body": "SaveBotInput",
+    "response_schema": "SaveBotResponse"
+  },
+  {
+    "id": "post_bot-id-savetools",
+    "method": "POST",
+    "path": "/bot/{id}/saveTools",
+    "tag": "Bot",
+    "summary": "Save bot tools",
+    "auth": "X-CB-KEY",
+    "request_body": "ToolInputDto",
+    "response_schema": "BotToolDto"
+  },
+  {
+    "id": "delete_bot-id-source-sourceid",
+    "method": "DELETE",
+    "path": "/bot/{id}/source/{sourceId}",
+    "tag": "Bot",
+    "summary": "Detach a source from a bot",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "post_bot-id-source-sourceid",
+    "method": "POST",
+    "path": "/bot/{id}/source/{sourceId}",
+    "tag": "Bot",
+    "summary": "Attach a source to a bot",
+    "auth": "X-CB-KEY",
+    "request_body": "AttachSourceInput",
+    "response_schema": null
+  },
+  {
+    "id": "get_bot-id-steps",
+    "method": "GET",
+    "path": "/bot/{id}/steps",
+    "tag": "Bot",
+    "summary": "Get steps for a version",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "put_bot-id-version-version",
+    "method": "PUT",
+    "path": "/bot/{id}/version/{version}",
+    "tag": "Bot",
+    "summary": "Update a bot version",
+    "auth": "X-CB-KEY",
+    "request_body": "UpdateVersionInput",
+    "response_schema": null
+  },
+  {
+    "id": "get_botmetric-actioncount",
+    "method": "GET",
+    "path": "/botMetric/actionCount",
+    "tag": "BotMetric",
+    "summary": "Get action count",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_botmetric-actions",
+    "method": "GET",
+    "path": "/botMetric/actions",
+    "tag": "BotMetric",
+    "summary": "Get actions",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BotMetricAction"
+  },
+  {
+    "id": "get_botmetric-agencymetric",
+    "method": "GET",
+    "path": "/botMetric/agencyMetric",
+    "tag": "BotMetric",
+    "summary": "Get agency metric",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_botmetric-agencysummary",
+    "method": "GET",
+    "path": "/botMetric/agencySummary",
+    "tag": "BotMetric",
+    "summary": "Get agency summary",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "AgencyDashboardSummaryResponse"
+  },
+  {
+    "id": "get_botmetric-bookinggraph",
+    "method": "GET",
+    "path": "/botMetric/bookingGraph",
+    "tag": "BotMetric",
+    "summary": "Get booking graph",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_botmetric-leaderboard",
+    "method": "GET",
+    "path": "/botMetric/leaderboard",
+    "tag": "BotMetric",
+    "summary": "Get global leaderboard",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "LeaderboardResponse"
+  },
+  {
+    "id": "get_botmetric-localleaderboard",
+    "method": "GET",
+    "path": "/botMetric/localleaderboard",
+    "tag": "BotMetric",
+    "summary": "Get local leaderboard",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "LeaderboardResponse"
+  },
+  {
+    "id": "get_botmetric-logs",
+    "method": "GET",
+    "path": "/botMetric/logs",
+    "tag": "BotMetric",
+    "summary": "Get logs",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BotMetricLog"
+  },
+  {
+    "id": "get_botmetric-messagecount",
+    "method": "GET",
+    "path": "/botMetric/messageCount",
+    "tag": "BotMetric",
+    "summary": "Get message count",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_botmetric-messagefeedback",
+    "method": "GET",
+    "path": "/botMetric/messageFeedback",
+    "tag": "BotMetric",
+    "summary": "Get messages with feedback",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "MessageFeedbackResponse"
+  },
+  {
+    "id": "post_botmetric-messagefeedback",
+    "method": "POST",
+    "path": "/botMetric/messageFeedback",
+    "tag": "BotMetric",
+    "summary": "Save message feedback",
+    "auth": "X-CB-KEY",
+    "request_body": "MessageFeedbackRequest",
+    "response_schema": null
+  },
+  {
+    "id": "get_botmetric-messagelikes",
+    "method": "GET",
+    "path": "/botMetric/messageLikes",
+    "tag": "BotMetric",
+    "summary": "Get messages with likes",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "MessageLikesResponse"
+  },
+  {
+    "id": "get_botmetric-messagereason",
+    "method": "GET",
+    "path": "/botMetric/messageReason",
+    "tag": "BotMetric",
+    "summary": "Get message feedback reason",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "MessageReason"
+  },
+  {
+    "id": "get_botmetric-messages",
+    "method": "GET",
+    "path": "/botMetric/messages",
+    "tag": "BotMetric",
+    "summary": "Get messages",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BotMetricMessage"
+  },
+  {
+    "id": "get_botvariables-botid-sourceid",
+    "method": "GET",
+    "path": "/botVariables/{botId}/{sourceId}",
+    "tag": "BotSourceVariable",
+    "summary": "Get source variables",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BotVariableDto"
+  },
+  {
+    "id": "post_botvariables-botid-sourceid",
+    "method": "POST",
+    "path": "/botVariables/{botId}/{sourceId}",
+    "tag": "BotSourceVariable",
+    "summary": "Update a source variable",
+    "auth": "X-CB-KEY",
+    "request_body": "BotVariableUpdateInput",
+    "response_schema": null
+  },
+  {
+    "id": "get_bottemplates",
+    "method": "GET",
+    "path": "/botTemplates",
+    "tag": "BotTemplate",
+    "summary": "List templates",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "BotTemplateDto"
+  },
+  {
+    "id": "get_bot-botid-testsession",
+    "method": "GET",
+    "path": "/bot/{botId}/testSession",
+    "tag": "BotTesting",
+    "summary": "List test sessions",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "ListLeadDto"
+  },
+  {
+    "id": "post_bot-botid-testsession",
+    "method": "POST",
+    "path": "/bot/{botId}/testSession",
+    "tag": "BotTesting",
+    "summary": "Create a test session",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "TestSession"
+  },
+  {
+    "id": "post_bot-botid-testsession-message",
+    "method": "POST",
+    "path": "/bot/{botId}/testSession/message",
+    "tag": "BotTesting",
+    "summary": "Send a message to a test session",
+    "auth": "X-CB-KEY",
+    "request_body": "TestSessionMessageInput",
+    "response_schema": null
+  },
+  {
+    "id": "get_bot-botid-testsession-messages-leadid",
+    "method": "GET",
+    "path": "/bot/{botId}/testSession/messages/{leadId}",
+    "tag": "BotTesting",
+    "summary": "Listen for messages",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "delete_bot-botid-testsession-leadid",
+    "method": "DELETE",
+    "path": "/bot/{botId}/testSession/{leadId}",
+    "tag": "BotTesting",
+    "summary": "Delete a test session",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "put_bot-botid-testsession-leadid",
+    "method": "PUT",
+    "path": "/bot/{botId}/testSession/{leadId}",
+    "tag": "BotTesting",
+    "summary": "Update a test session",
+    "auth": "X-CB-KEY",
+    "request_body": "UpdateSessionInput",
+    "response_schema": "UpdateSessionDto"
+  },
+  {
+    "id": "post_bot-botid-testsession-leadid-force-step",
+    "method": "POST",
+    "path": "/bot/{botId}/testSession/{leadId}/force-step",
+    "tag": "BotTesting",
+    "summary": "Force processing",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "post_bot-botid-testsession-leadid-rollback",
+    "method": "POST",
+    "path": "/bot/{botId}/testSession/{leadId}/rollback",
+    "tag": "BotTesting",
+    "summary": "Rollback a test session",
+    "auth": "X-CB-KEY",
+    "request_body": "BotTestingRollbackInput",
+    "response_schema": "BotTestingRollbackOutput"
+  },
+  {
+    "id": "get_hierarchy",
+    "method": "GET",
+    "path": "/hierarchy",
+    "tag": "Hierarchy",
+    "summary": "List folders",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "ListHierarchyResult"
+  },
+  {
+    "id": "post_hierarchy",
+    "method": "POST",
+    "path": "/hierarchy",
+    "tag": "Hierarchy",
+    "summary": "Add a folder",
+    "auth": "X-CB-KEY",
+    "request_body": "AddHierarchyInput",
+    "response_schema": "AddHierarchyOutput"
+  },
+  {
+    "id": "delete_hierarchy-id",
+    "method": "DELETE",
+    "path": "/hierarchy/{id}",
+    "tag": "Hierarchy",
+    "summary": "Delete a folder",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_hierarchy-id",
+    "method": "GET",
+    "path": "/hierarchy/{id}",
+    "tag": "Hierarchy",
+    "summary": "Get a folder",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "ListHierarchyResult"
+  },
+  {
+    "id": "put_hierarchy-id",
+    "method": "PUT",
+    "path": "/hierarchy/{id}",
+    "tag": "Hierarchy",
+    "summary": "Update a folder",
+    "auth": "X-CB-KEY",
+    "request_body": "HierarchyInput",
+    "response_schema": null
+  },
+  {
+    "id": "get_lead",
+    "method": "GET",
+    "path": "/lead",
+    "tag": "Lead",
+    "summary": "List leads",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "LeadDtoPaginated"
+  },
+  {
+    "id": "post_lead-search",
+    "method": "POST",
+    "path": "/lead/search",
+    "tag": "Lead",
+    "summary": "Search leads",
+    "auth": "X-CB-KEY",
+    "request_body": "SearchQueryInput",
+    "response_schema": "SearchLeadResultDto"
+  },
+  {
+    "id": "delete_lead-leadid",
+    "method": "DELETE",
+    "path": "/lead/{leadId}",
+    "tag": "Lead",
+    "summary": "Delete a lead",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_lead-leadid",
+    "method": "GET",
+    "path": "/lead/{leadId}",
+    "tag": "Lead",
+    "summary": "Get a lead",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "LeadDto"
+  },
+  {
+    "id": "put_lead-leadid",
+    "method": "PUT",
+    "path": "/lead/{leadId}",
+    "tag": "Lead",
+    "summary": "Update lead fields",
+    "auth": "X-CB-KEY",
+    "request_body": "LeadUpdateDto",
+    "response_schema": null
+  },
+  {
+    "id": "get_lead-leadid-ai-toggle",
+    "method": "GET",
+    "path": "/lead/{leadId}/ai-toggle",
+    "tag": "Lead",
+    "summary": "",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "LeadAiToggleDto"
+  },
+  {
+    "id": "put_lead-leadid-ai-toggle",
+    "method": "PUT",
+    "path": "/lead/{leadId}/ai-toggle",
+    "tag": "Lead",
+    "summary": "",
+    "auth": "X-CB-KEY",
+    "request_body": "LeadAiToggleUpdateDto",
+    "response_schema": "LeadAiToggleDto"
+  },
+  {
+    "id": "put_lead-leadid-instance-botid",
+    "method": "PUT",
+    "path": "/lead/{leadId}/instance/{botId}",
+    "tag": "Lead",
+    "summary": "Update a lead instance",
+    "auth": "X-CB-KEY",
+    "request_body": "InstanceUpdateDto",
+    "response_schema": null
+  },
+  {
+    "id": "get_lead-leadid-page-history",
+    "method": "GET",
+    "path": "/lead/{leadId}/page-history",
+    "tag": "Lead",
+    "summary": "",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "LeadPageVisitDto"
+  },
+  {
+    "id": "post_lead-leadid-send-message",
+    "method": "POST",
+    "path": "/lead/{leadId}/send-message",
+    "tag": "Lead",
+    "summary": "Send a message to a lead",
+    "auth": "X-CB-KEY",
+    "request_body": "SendMessageInputDto",
+    "response_schema": "SendMessageResultDto"
+  },
+  {
+    "id": "post_lead-leadid-typing",
+    "method": "POST",
+    "path": "/lead/{leadId}/typing",
+    "tag": "Lead",
+    "summary": "Broadcast human typing state to live subscribers for a lead.",
+    "auth": "X-CB-KEY",
+    "request_body": "LeadTypingInputDto",
+    "response_schema": null
+  },
+  {
+    "id": "get_library-files",
+    "method": "GET",
+    "path": "/library/files",
+    "tag": "Library",
+    "summary": "List files",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "FileDto"
+  },
+  {
+    "id": "post_library-files",
+    "method": "POST",
+    "path": "/library/files",
+    "tag": "Library",
+    "summary": "Upload a file",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "delete_library-files-fileid",
+    "method": "DELETE",
+    "path": "/library/files/{fileId}",
+    "tag": "Library",
+    "summary": "Delete a file",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_library-files-fileid",
+    "method": "GET",
+    "path": "/library/files/{fileId}",
+    "tag": "Library",
+    "summary": "Get a file metadata",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "FileDto"
+  },
+  {
+    "id": "put_library-files-fileid",
+    "method": "PUT",
+    "path": "/library/files/{fileId}",
+    "tag": "Library",
+    "summary": "Replace file content",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_library-files-fileid-scrape-pages",
+    "method": "GET",
+    "path": "/library/files/{fileId}/scrape-pages",
+    "tag": "Library",
+    "summary": "Get the scrape pages for a file",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "WebscrapePageDto"
+  },
+  {
+    "id": "put_library-files-fileid-scrape-pages",
+    "method": "PUT",
+    "path": "/library/files/{fileId}/scrape-pages",
+    "tag": "Library",
+    "summary": "Update the scrape pages for a file",
+    "auth": "X-CB-KEY",
+    "request_body": "WebscrapePageUpdateDto",
+    "response_schema": null
+  },
+  {
+    "id": "delete_library-files-fileid-source-sourceid",
+    "method": "DELETE",
+    "path": "/library/files/{fileId}/source/{sourceId}",
+    "tag": "Library",
+    "summary": "Detach a file from a source",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "post_library-files-fileid-source-sourceid",
+    "method": "POST",
+    "path": "/library/files/{fileId}/source/{sourceId}",
+    "tag": "Library",
+    "summary": "Attach a file to a source",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_library-files-fileid-view",
+    "method": "GET",
+    "path": "/library/files/{fileId}/view",
+    "tag": "Library",
+    "summary": "Get file content",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "post_library-webscrape",
+    "method": "POST",
+    "path": "/library/webscrape",
+    "tag": "Library",
+    "summary": "Create a Web-Scrape file",
+    "auth": "X-CB-KEY",
+    "request_body": "UploadWebscrapeToSourceInput",
+    "response_schema": null
+  },
+  {
+    "id": "get_bot-live-demo-live-key",
+    "method": "GET",
+    "path": "/bot-live-demo/live/{key}",
+    "tag": "LiveDemo",
+    "summary": "Get Live Demo",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "LiveDemoDto"
+  },
+  {
+    "id": "post_bot-live-demo-live-key-session",
+    "method": "POST",
+    "path": "/bot-live-demo/live/{key}/session",
+    "tag": "LiveDemo",
+    "summary": "Create Live Demo Session",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "LiveDemoSessionDto"
+  },
+  {
+    "id": "get_bot-live-demo-live-key-session-sessionleadid",
+    "method": "GET",
+    "path": "/bot-live-demo/live/{key}/session/{sessionLeadId}",
+    "tag": "LiveDemo",
+    "summary": "Get Live Demo Lead",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "put_bot-live-demo-live-key-session-sessionleadid",
+    "method": "PUT",
+    "path": "/bot-live-demo/live/{key}/session/{sessionLeadId}",
+    "tag": "LiveDemo",
+    "summary": "Update Live Demo Fields",
+    "auth": "X-CB-KEY",
+    "request_body": "LeadUpdateDto",
+    "response_schema": null
+  },
+  {
+    "id": "post_bot-live-demo-live-key-session-sessionleadid-message",
+    "method": "POST",
+    "path": "/bot-live-demo/live/{key}/session/{sessionLeadId}/message",
+    "tag": "LiveDemo",
+    "summary": "Stream Live Demo Messages",
+    "auth": "X-CB-KEY",
+    "request_body": "LiveDemoMessageInput",
+    "response_schema": null
+  },
+  {
+    "id": "get_bot-live-demo-live-key-session-sessionleadid-stream",
+    "method": "GET",
+    "path": "/bot-live-demo/live/{key}/session/{sessionLeadId}/stream",
+    "tag": "LiveDemo",
+    "summary": "Stream Live Demo Messages",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_bot-live-demo-botid",
+    "method": "GET",
+    "path": "/bot-live-demo/{botId}",
+    "tag": "LiveDemo",
+    "summary": "List Live Demos",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "LiveDemoDto"
+  },
+  {
+    "id": "post_bot-live-demo-botid",
+    "method": "POST",
+    "path": "/bot-live-demo/{botId}",
+    "tag": "LiveDemo",
+    "summary": "Create Live Demo",
+    "auth": "X-CB-KEY",
+    "request_body": "LiveDemoCreateDto",
+    "response_schema": "LiveDemoDto"
+  },
+  {
+    "id": "delete_bot-live-demo-botid-key",
+    "method": "DELETE",
+    "path": "/bot-live-demo/{botId}/{key}",
+    "tag": "LiveDemo",
+    "summary": "Delete Live Demo",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "LiveDemoDto"
+  },
+  {
+    "id": "put_bot-live-demo-botid-key",
+    "method": "PUT",
+    "path": "/bot-live-demo/{botId}/{key}",
+    "tag": "LiveDemo",
+    "summary": "Update Live Demo",
+    "auth": "X-CB-KEY",
+    "request_body": "LiveDemoCreateDto",
+    "response_schema": "LiveDemoDto"
+  },
+  {
+    "id": "get_notifications",
+    "method": "GET",
+    "path": "/notifications",
+    "tag": "Notification",
+    "summary": "List notifications",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "NotificationDto"
+  },
+  {
+    "id": "get_notifications-forwarding",
+    "method": "GET",
+    "path": "/notifications/forwarding",
+    "tag": "Notification",
+    "summary": "Get notification forwarding settings",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "put_notifications-forwarding",
+    "method": "PUT",
+    "path": "/notifications/forwarding",
+    "tag": "Notification",
+    "summary": "Update notification forwarding settings",
+    "auth": "X-CB-KEY",
+    "request_body": "NotificationForwardingDto",
+    "response_schema": null
+  },
+  {
+    "id": "delete_notifications-id",
+    "method": "DELETE",
+    "path": "/notifications/{id}",
+    "tag": "Notification",
+    "summary": "Delete a notification",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "NotificationDto"
+  },
+  {
+    "id": "put_notifications-id",
+    "method": "PUT",
+    "path": "/notifications/{id}",
+    "tag": "Notification",
+    "summary": "Update a notification",
+    "auth": "X-CB-KEY",
+    "request_body": "NotificationUpdateDto",
+    "response_schema": "NotificationDto"
+  },
+  {
+    "id": "get_persona",
+    "method": "GET",
+    "path": "/persona",
+    "tag": "Persona",
+    "summary": "List personas",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "PersonaDto"
+  },
+  {
+    "id": "post_persona",
+    "method": "POST",
+    "path": "/persona",
+    "tag": "Persona",
+    "summary": "Create a new persona",
+    "auth": "X-CB-KEY",
+    "request_body": "CreatePersonaInput",
+    "response_schema": null
+  },
+  {
+    "id": "delete_persona-id",
+    "method": "DELETE",
+    "path": "/persona/{id}",
+    "tag": "Persona",
+    "summary": "Delete a persona",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_persona-id",
+    "method": "GET",
+    "path": "/persona/{id}",
+    "tag": "Persona",
+    "summary": "Get a persona",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "PersonaDto"
+  },
+  {
+    "id": "put_persona-id",
+    "method": "PUT",
+    "path": "/persona/{id}",
+    "tag": "Persona",
+    "summary": "Update a persona",
+    "auth": "X-CB-KEY",
+    "request_body": "UpdatePersonaInput",
+    "response_schema": "PersonaDto"
+  },
+  {
+    "id": "get_smart-faq",
+    "method": "GET",
+    "path": "/smart-faq",
+    "tag": "SmartFAQ",
+    "summary": "List FAQs",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "SmartFAQDto"
+  },
+  {
+    "id": "post_smart-faq",
+    "method": "POST",
+    "path": "/smart-faq",
+    "tag": "SmartFAQ",
+    "summary": "Create a new FAQ",
+    "auth": "X-CB-KEY",
+    "request_body": "CreateSmartFAQRequest",
+    "response_schema": null
+  },
+  {
+    "id": "post_smart-faq-answer",
+    "method": "POST",
+    "path": "/smart-faq/answer",
+    "tag": "SmartFAQ",
+    "summary": "Answer multiple FAQs",
+    "auth": "X-CB-KEY",
+    "request_body": "AnswerMultipleFAQsRequest",
+    "response_schema": "SmartFAQDto"
+  },
+  {
+    "id": "post_smart-faq-answered-followup",
+    "method": "POST",
+    "path": "/smart-faq/answered-followup",
+    "tag": "SmartFAQ",
+    "summary": "Follow up on answered FAQs",
+    "auth": "X-CB-KEY",
+    "request_body": "AnsweredFAQFollowUpRequest",
+    "response_schema": null
+  },
+  {
+    "id": "delete_smart-faq-id",
+    "method": "DELETE",
+    "path": "/smart-faq/{id}",
+    "tag": "SmartFAQ",
+    "summary": "Delete an FAQ",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "get_agency-source",
+    "method": "GET",
+    "path": "/agency/source",
+    "tag": "Source",
+    "summary": "List sources",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "SourceDtoPaginated"
+  },
+  {
+    "id": "post_agency-source",
+    "method": "POST",
+    "path": "/agency/source",
+    "tag": "Source",
+    "summary": "Add a source",
+    "auth": "X-CB-KEY",
+    "request_body": "AddSourceInput",
+    "response_schema": "SourceDto"
+  },
+  {
+    "id": "delete_agency-source-id",
+    "method": "DELETE",
+    "path": "/agency/source/{id}",
+    "tag": "Source",
+    "summary": "Delete a source",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "Get a source",
+    "method": "GET",
+    "path": "/agency/source/{id}",
+    "tag": "Source",
+    "summary": "Get a source",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "SourceDto"
+  },
+  {
+    "id": "get_agency-source-id-calendars",
+    "method": "GET",
+    "path": "/agency/source/{id}/calendars",
+    "tag": "Source",
+    "summary": "List source calendars",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "SourceCalendarDto"
+  },
+  {
+    "id": "get_agency-source-id-channels",
+    "method": "GET",
+    "path": "/agency/source/{id}/channels",
+    "tag": "Source",
+    "summary": "List source channels",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "SourceChannelDto"
+  },
+  {
+    "id": "get_agency-source-id-fields",
+    "method": "GET",
+    "path": "/agency/source/{id}/fields",
+    "tag": "Source",
+    "summary": "List source fields",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "SourceFieldCollectionDto"
+  },
+  {
+    "id": "get_agency-source-id-owners",
+    "method": "GET",
+    "path": "/agency/source/{id}/owners",
+    "tag": "Source",
+    "summary": "List HubSpot owners",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "SourceOwnerDto"
+  },
+  {
+    "id": "get_agency-source-id-tags",
+    "method": "GET",
+    "path": "/agency/source/{id}/tags",
+    "tag": "Source",
+    "summary": "List source tags",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": "SourceTagDto"
+  },
+  {
+    "id": "put_agency-source-sourceid",
+    "method": "PUT",
+    "path": "/agency/source/{sourceId}",
+    "tag": "Source",
+    "summary": "Update a source",
+    "auth": "X-CB-KEY",
+    "request_body": "UpdateSourceInput",
+    "response_schema": "SourceDto"
+  },
+  {
+    "id": "post_webhook-event-sourceid",
+    "method": "POST",
+    "path": "/webhook/event/{sourceId}",
+    "tag": "Webhook",
+    "summary": "Send a webhook event",
+    "auth": "X-CB-KEY",
+    "request_body": null,
+    "response_schema": null
+  },
+  {
+    "id": "send_live_message",
+    "method": "POST",
+    "path": "/message",
+    "tag": "LiveMessage",
+    "summary": "Send a message to a Closebot conversation (live, not REST)",
+    "auth": "X-CB-KEY (optional when integrated with GHL)",
+    "request_body": "MessagePayload",
+    "response_schema": null,
+    "base_url": "https://api.closebot.ai"
+  }
+]

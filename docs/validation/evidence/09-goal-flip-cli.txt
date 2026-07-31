@@ -1,0 +1,62 @@
+# produced by: hand-assembled terminal transcript (not a script)
+#   Commands, in order: `closewire test start`, two `closewire test say`,
+#   `closewire bots publish --confirm`, `closewire test start`, two `closewire test say`,
+#   bracketed by two `agency/usage` reads. No single script emits this; a review agent
+#   pointed out the log described it as verbatim output of `test start` and `test say`,
+#   which its own composition does not support.
+usedResponses BEFORE: 4.0 / 500
+
+$ closewire test start --bot bot_2U91R6FH00C25WZS
+session started on bot bot_2U91R6FH00C25WZS
+  lead id: lead_test_P45CKLBNJCHR7M7K
+  next:    closewire test say lead_test_P45CKLBNJCHR7M7K "hello" --bot bot_2U91R6FH00C25WZS
+
+$ closewire test say lead_test_P45CKLBNJCHR7M7K "Hi, I need a new roof" --bot bot_2U91R6FH00C25WZS
+you: Hi, I need a new roof
+bot: *started
+  [This send may have spent credit — it is treated as a paid write, but whether test-
+   session sends are metered is NOT established: `usedResponses` read 4.0 before and
+   after three real replies through this command (the meter may lag, or test traffic
+   may be free — unknown). The only source of truth is the account itself: `closewire
+   ping` -> usage `usedResponses`. The pacer's counters are per-process and cannot
+   tell you.]
+
+$ closewire test say lead_test_P45CKLBNJCHR7M7K "I want asphalt shingles" --bot bot_2U91R6FH00C25WZS
+you: I want asphalt shingles
+bot: Got it. Is this for a residential or commercial property?
+  [This send may have spent credit — it is treated as a paid write, but whether test-
+   session sends are metered is NOT established: `usedResponses` read 4.0 before and
+   after three real replies through this command (the meter may lag, or test traffic
+   may be free — unknown). The only source of truth is the account itself: `closewire
+   ping` -> usage `usedResponses`. The pacer's counters are per-process and cannot
+   tell you.]
+
+$ closewire bots publish bot_2U91R6FH00C25WZS --confirm   # Tier-2; publishes v0.0.2 which carries the Objective node
+tier2: publishing bot bot_2U91R6FH00C25WZS — this makes it live
+published bot_2U91R6FH00C25WZS
+
+$ closewire test start --bot bot_2U91R6FH00C25WZS   # fresh session, to pick up published v0.0.2
+session started on bot bot_2U91R6FH00C25WZS
+  lead id: lead_test_994M4H1UZE62X2F7
+  next:    closewire test say lead_test_994M4H1UZE62X2F7 "hello" --bot bot_2U91R6FH00C25WZS
+
+$ closewire test say lead_test_994M4H1UZE62X2F7 "Hi, I need a new roof" --bot bot_2U91R6FH00C25WZS
+you: Hi, I need a new roof
+bot: Hi there. Happy to help with that. What type of property is it for?
+  [This send may have spent credit — it is treated as a paid write, but whether test-
+   session sends are metered is NOT established: `usedResponses` read 4.0 before and
+   after three real replies through this command (the meter may lag, or test traffic
+   may be free — unknown). The only source of truth is the account itself: `closewire
+   ping` -> usage `usedResponses`. The pacer's counters are per-process and cannot
+   tell you.]
+
+$ closewire test say lead_test_994M4H1UZE62X2F7 "Residential. I want asphalt shingles." --bot bot_2U91R6FH00C25WZS
+you: Residential. I want asphalt shingles.
+bot: Got it. What's the address of the property?
+  [This send may have spent credit — it is treated as a paid write, but whether test-
+   session sends are metered is NOT established: `usedResponses` read 4.0 before and
+   after three real replies through this command (the meter may lag, or test traffic
+   may be free — unknown). The only source of truth is the account itself: `closewire
+   ping` -> usage `usedResponses`. The pacer's counters are per-process and cannot
+   tell you.]
+usedResponses: 4.0 / 500

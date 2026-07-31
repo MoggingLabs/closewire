@@ -1,0 +1,16 @@
+# produced by: scripts/probe_runtime_auth.py --live
+usedResponses BEFORE: 4.0
+endpoint: https://api.closebot.ai/message
+contact:  zz-closewire-probe-contact (synthetic)
+
+-- credential form, `message` omitted --
+  x-cb-key                 -> NoAccount: live message 410: no such account for the resolved key/contact
+  authorization-key        -> NoAccount: live message 410: no such account for the resolved key/contact
+  authorization-bearer     -> NoAccount: live message 410: no such account for the resolved key/contact
+  no credential at all     -> NoAccount: live message 410: no such account for the resolved key/contact
+
+-- RESEARCH.md legacy proxy shape: Bearer + `bot_id` body --
+  bot_id=bot_2U91R6FH00C25WZS -> HTTP 410 "Account not yet connected to a bot, invalid credentials (if using api_key) or attempting to access a LOCKED b
+
+usedResponses AFTER:  4.0
+CREDITS SPENT: 0.0

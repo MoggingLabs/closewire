@@ -1,0 +1,58 @@
+# produced by: scripts/probe_goal_state.py
+== GET /botVariables/{botId}/{sourceId} — every pair on the account ==
+   (the throwaway AND real production bots: without the control, an empty
+    result for the test lead cannot be told from an empty endpoint)
+
+  zz-closewire-test-09-renamed   src_NOCFEY77J7AISEYE         -> []
+  Appointment Setter (Imported   (no sources attached)
+  Money Flow                     src_IVEKDZMGOUITP4LF         -> []
+  Money Flow                     src_RH82L07X685HV1P3         -> []
+  State Router Draft             src_NOCFEY77J7AISEYE         -> []
+
+== test-session leads on the throwaway ==
+
+  lead_test_994M4H1UZE62X2F7
+    list row   fields=[] tags=[]
+    instances  [{"botId": "bot_2U91R6FH00C25WZS", "botVersion": null, "followUpTimezoneKind": "unknown", 
+    lead read  fields=[]
+    goal-ish keys on the lead record: ['fields']
+
+  lead_test_P45CKLBNJCHR7M7K
+    list row   fields=[] tags=[]
+    instances  [{"botId": "bot_2U91R6FH00C25WZS", "botVersion": null, "followUpTimezoneKind": "unknown", 
+    lead read  fields=[]
+    goal-ish keys on the lead record: ['fields']
+
+  lead_test_UFSB3VP1GQZ441Y9
+    list row   fields=[] tags=[]
+    instances  [{"botId": "bot_2U91R6FH00C25WZS", "botVersion": null, "followUpTimezoneKind": "unknown", 
+    lead read  fields=[]
+    goal-ish keys on the lead record: ['fields']
+
+== GET /botMetric/actions?leadId=... — per-lead NODE EXECUTION ==
+   The surface that actually answers the question, and the one a council block
+   had to name: it takes `leadId` and returns `nodeId`/`frontendNodeId` per
+   action, so it shows which flow nodes ran for a given lead.
+
+  lead_test_994M4H1UZE62X2F7: 3 action(s)
+      2026-07-27T12:53:46  nodeId=1  frontendNodeId='sourceNode'
+      2026-07-27T12:53:46  nodeId=99999  frontendNodeId=''
+      2026-07-27T12:54:03  nodeId=99999  frontendNodeId=''
+  lead_test_P45CKLBNJCHR7M7K: 3 action(s)
+      2026-07-27T12:52:00  nodeId=1  frontendNodeId='sourceNode'
+      2026-07-27T12:52:00  nodeId=99999  frontendNodeId=''
+      2026-07-27T12:52:29  nodeId=99999  frontendNodeId=''
+  lead_test_UFSB3VP1GQZ441Y9: 4 action(s)
+      2026-07-26T15:36:00  nodeId=1  frontendNodeId='sourceNode'
+      2026-07-26T15:36:00  nodeId=99999  frontendNodeId=''
+      2026-07-26T15:38:28  nodeId=99999  frontendNodeId=''
+      2026-07-26T15:39:38  nodeId=99999  frontendNodeId=''
+
+== what this establishes ==
+  The variable/lead surfaces are empty everywhere, INCLUDING for production
+  sources, so their emptiness alone proves nothing.
+  The ACTION surface does answer it: every session executed `sourceNode` and
+  nothing downstream. The Statement and Objective nodes never ran, in the
+  pre-publish session AND the post-publish one. So the goal could not have
+  flipped, and the absence of goal state is a consequence of that rather than
+  evidence about where goal state lives. See deviations 31, 32 and 35.

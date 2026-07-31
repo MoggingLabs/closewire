@@ -1,0 +1,180 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "CloseBot Live Message API",
+    "version": "1.0",
+    "description": "Standalone live messaging endpoint, separate from the REST management API. Drives bot conversations. Documented at https://closebot.readme.io/reference. When the contact is already integrated with the GHL CRM source, api_key is optional; otherwise X-CB-KEY (or body api_key) is required."
+  },
+  "servers": [
+    {
+      "url": "https://api.closebot.ai",
+      "description": "Primary"
+    },
+    {
+      "url": "https://xljmafyych.execute-api.us-west-2.amazonaws.com",
+      "description": "AWS Lambda backing"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "Key": {
+        "type": "apiKey",
+        "name": "X-CB-KEY",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "MessagePayload": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Contact identifier for conversation tracking"
+          },
+          "api_key": {
+            "type": "string",
+            "description": "Required unless integrated with GoHighLevel CRM"
+          },
+          "@rep_name": {
+            "type": "string",
+            "description": "Bot's self-identification name"
+          },
+          "@lead_name": {
+            "type": "string",
+            "description": "Contact's first name"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message requiring response"
+          },
+          "goals_finished": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Pre-completed goals to skip"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "description": "Max processing attempts per contact"
+          },
+          "extra_prompt": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Additional instructions (<=500 chars)"
+          },
+          "bot": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "description": "Bot ID (earliest if unspecified)"
+          },
+          "model": {
+            "type": "string",
+            "default": "text-davinci-003",
+            "enum": [
+              "text-davinci-003",
+              "gpt-4",
+              "gpt-4-1106-preview"
+            ]
+          },
+          "followup": {
+            "type": "boolean",
+            "default": false,
+            "description": "Process followup instead of reply"
+          },
+          "is_update": {
+            "type": "boolean",
+            "default": false,
+            "description": "Update memory vs. generate reply"
+          },
+          "character_limit": {
+            "type": "integer",
+            "format": "int32",
+            "default": 225,
+            "description": "Output character maximum"
+          },
+          "delay": {
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "description": "Processing delay (seconds)"
+          },
+          "channel": {
+            "type": "string",
+            "enum": [
+              "Live_Chat",
+              "SMS",
+              "FB",
+              "Email",
+              "IG",
+              "WhatsApp"
+            ],
+            "description": "Override channel"
+          }
+        },
+        "additionalProperties": {
+          "type": "string",
+          "description": "Custom variables prefixed with @ (e.g. @example_variable) are accepted and injected into the prompt"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/message": {
+      "post": {
+        "operationId": "send_live_message",
+        "summary": "Send a message to a Closebot conversation",
+        "tags": [
+          "LiveMessage"
+        ],
+        "security": [
+          {
+            "Key": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessagePayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK (No integration) \u2014 message processed, bot response returned"
+          },
+          "201": {
+            "description": "Rerun \u2014 another message arrived during processing; client should retry"
+          },
+          "410": {
+            "description": "No Account \u2014 the resolved account is missing"
+          },
+          "420": {
+            "description": "No Credits \u2014 account has insufficient credits"
+          },
+          "430": {
+            "description": "No ID \u2014 id field missing from request"
+          },
+          "440": {
+            "description": "No Message Body \u2014 message field missing"
+          },
+          "450": {
+            "description": "Bot Limit Reached \u2014 bot processed maximum allowed messages for this contact"
+          },
+          "460": {
+            "description": "Account Limit \u2014 [INCOMPLETE] exact threshold not documented"
+          }
+        }
+      }
+    }
+  }
+}

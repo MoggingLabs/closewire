@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "closewire"
+version = "0.1.0"
+description = "Configure and read Closebot.ai — a paced Python client + MCP server over Closebot's official API."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "MoggingLabs" }]
+keywords = ["closebot", "mcp", "claude", "gohighlevel", "chatbot", "api-client"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "httpx>=0.27",
+    "python-dotenv>=1.0",
+    "mcp>=1.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+    "mypy>=1.10",
+]
+
+[project.urls]
+Homepage = "https://github.com/MoggingLabs/closewire"
+Repository = "https://github.com/MoggingLabs/closewire"
+
+[project.scripts]
+closewire = "cli.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["closewire_client*", "cli*", "mcp_server*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+# `ruff` was a declared dev dependency from phase 01 and was never once run, so nine rounds
+# of review hunted dead imports by hand and a critic still found one the sweep missed. The
+# rule set is deliberately narrow rather than the full default. Style rules are excluded on
+# purpose — this codebase's comment density is a deliberate house style that a general rule set
+# argues with, and a gate people silence is worse than no gate. The selection and the reasoning
+# for each rule are below; this paragraph deliberately does not restate them.
+[tool.ruff.lint]
+# F + E9 are the findings that are always real. The other three are here for a specific
+# reason each, and the ones deliberately left OUT are named below so the choice is a decision
+# rather than an oversight.
+#
+# RUF100 — unused `# noqa`. This repo carried **40** directives naming rules that were not
+#   enabled: 23 E402, 12 BLE001, 2 SLF001, 2 N803, 1 S310. They looked like configuration and
+#   were comments. One of them was load-bearing and wrong: `fetch_spec.py`'s `# noqa: S310
+#   (trusted https)` sat on the `urlopen` line while ruff flags the `Request(...)` line above
+#   it — misplaced since it was written, and unknowable while the rule was off. That is the
+#   case against decorative directives: they are unverified assertions about the linter.
+# S310 — `urlopen` on an unvalidated URL. Two sites; enabling it turned "trusted https" from
+#   a misplaced comment into an actual `startswith("https://")` check.
+#
+# NOT enabled, on purpose:
+#   E402 — 23 more suppressions for the intrinsic `sys.path.insert`-then-import script
+#          preamble. Thirty-eight directives to say one thing about five files.
+#   SLF001 — 52 sites; tests reaching into privates is deliberate here.
+#   N803 — 95 sites; camelCase argument names mirror the API on purpose, and the two existing
+#          directives already say so.
+#   BLE001 — 15 sites. Estimated at 1 before RUF100 ran; that estimate was made while twelve
+#          MISPLACED `# noqa: BLE001` directives were masking the real count, which is itself
+#          the argument for RUF100. Every one of those 15 is a probe or a verifier that
+#          deliberately reports rather than raises, and each already carries a written
+#          justification. Fifteen suppressions to enforce a rule the codebase has consciously
+#          decided against is churn, not safety.
+select = ["F", "E9", "S310", "RUF100"]

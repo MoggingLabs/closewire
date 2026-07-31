@@ -32,6 +32,9 @@ pnpm-debug.log*
 snapshots/
 *.snapshot.json
 
+# ── Live spec snapshot (drift detection only; vendored openapi.json is the oracle) ──
+schema/openapi.live.json
+
 # ── Local-only build prompts (never shipped) ────────────────────────
 prompts/
 
@@ -41,3 +44,10 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+
+# Pacing state (persisted circuit-breaker halt) -- local runtime state, never shared.
+.closewire/
+
+# Validation screenshots: real client/consumer PII from a live account.
+# Evidence is kept LOCAL for sign-off and must never enter git history.
+docs/validation/screens/

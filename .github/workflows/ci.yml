@@ -1,0 +1,37 @@
+# The offline tier of `scripts/ci.py`, on every push and pull request.
+#
+# This workflow deliberately runs the SAME entry point a developer runs locally, with no
+# extra steps and no reordering. Phase 09 spent eleven review rounds partly because every
+# critic verified a different subset; a CI file that duplicates the check list would
+# reintroduce exactly that drift, one commit after someone edits one of the two.
+#
+# `tests/test_ci_wiring.py` asserts this file invokes `scripts/ci.py` and does not hand-roll
+# its own list of checks.
+#
+# No credentials are configured here on purpose. The offline tier is hermetic — the write
+# and Tier-2 verifiers drive a MockTransport that raises on any request — so CI can never
+# reach the Closebot API, never spend a credit, and never need a secret.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: Validate
+        run: python scripts/ci.py
